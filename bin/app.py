@@ -10,9 +10,15 @@ class index(object):
 	def GET(self):
 		return render.hello_form()
 	def POST(self):
-		form = web.input(name="World", greet="Hello")
+		form = web.input(name="World", greet="Hello", myfile={})
 		greeting = "%s, %s" % (form.greet, form.name)
-		return render.index(greeting = greeting)
+		filename = form['myfile'].filename
+		if filename and filename.split('.')[-1] in ['jpg', 'jpeg', 'png', 'gif']:
+			with open('./static/'+filename, 'wb') as f:
+				f.write(form.myfile.value)
+			return render.index(greeting = greeting, filename = filename)
+		else:
+			return render.index(greeting = greeting)
 
 if __name__ == '__main__':
 	app.run()

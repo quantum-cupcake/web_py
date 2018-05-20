@@ -1,10 +1,13 @@
-$def with (greeting)
+$def with (greeting, filename)
 
 <p>
 $if greeting:
-	<em style="color:cyan;font-size: 2em;">$greeting</em>.
+	<h1>$greeting!</h1>
+	<br/>
+	$if filename:
+		<img src="http://localhost:8080/static/$filename" alt="sth">
 $else:
-	<em>You dumb boi?</em>
+	<em>You what now?</em>
 </p>
 <p>
 <a href="/hello" style="font-family: monospace;">link</a>
